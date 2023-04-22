@@ -3,6 +3,7 @@ import styled from "styled-components";
 import eth from "../assets/eth.svg";
 import StyledButton from "./Button";
 import Web3 from "web3";
+import StyledInput from "../components/Input";
 
 let web3
 web3 = web3?.currentProvider || new Web3(window.ethereum);
@@ -13,10 +14,17 @@ const Container = styled.div`
 
 const LeftRightSplitContainer = styled.div`
   display: grid;
+  grid-template-columns:40% auto;
 `;
 
 const LeftContainer = styled.div`
   grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  img{
+      width: 100px;
+  }
 `;
 
 const RightContainer = styled.div`
@@ -49,8 +57,8 @@ const BiddingSection = () => {
         <LeftContainer>
           <img src={eth} alt="temp pic"/>
           <form method="post" onSubmit={handleBid}>
-            <input name="bidPrice" onChange={handleChange} />
-            <input name="idSecret" onChange={handleChange} />
+            <StyledInput name="bidPrice" onChange={handleChange} />
+            <StyledInput name="idSecret" onChange={handleChange} />
             <StyledButton type="submit">Register</StyledButton>
           </form>
         </LeftContainer>
