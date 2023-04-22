@@ -29,8 +29,8 @@ const Section = () => (
       In this system, bidders and their bid prices will be hidden, <br/>
       ensuring that only the winning bidder and their bid amount will be revealed.
     </h3>
-    <img src={dollar}/>
-    <img src={eth}/>
+    <img src={dollar} alt="pic"/>
+    <img src={eth} alt="pic"/>
   </Container>
 );
 

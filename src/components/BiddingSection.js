@@ -2,6 +2,10 @@ import { useState } from "react";
 import styled from "styled-components";
 import eth from "../assets/eth.svg";
 import StyledButton from "./Button";
+import Web3 from "web3";
+
+let web3
+web3 = web3?.currentProvider || new Web3(window.ethereum);
 
 const Container = styled.div`
   color: black;
@@ -19,22 +23,20 @@ const RightContainer = styled.div`
   grid-column: 2;
 `;
 
-
-
 const BiddingSection = () => {
-    
-const [inputs, setInputs] = useState({})
+  const [inputs, setInputs] = useState({});
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
 
-const handleBid = (e) =>{
+  const handleBid = async(e) => {
     e.preventDefault();
-    console.log(inputs)
-}
+    const block = await web3.eth.getAccounts()
+    console.log(block)
+  };
 
   return (
     <Container>
@@ -42,15 +44,15 @@ const handleBid = (e) =>{
         {" "}
         I'm a Bidder{" "}
       </p>
-      <p style={{fontSize: "46px" }}> Ongoing Auction </p>
+      <p style={{ fontSize: "46px" }}> Ongoing Auction </p>
       <LeftRightSplitContainer>
         <LeftContainer>
-            <img src={eth}/>
-            <form method="post" onSubmit = {handleBid}>
-                <input name="bidPrice" onChange={handleChange}/>
-                <input name="idSecret" onChange={handleChange}/>
-                <StyledButton type="submit">Register</StyledButton>
-            </form>
+          <img src={eth} alt="temp pic"/>
+          <form method="post" onSubmit={handleBid}>
+            <input name="bidPrice" onChange={handleChange} />
+            <input name="idSecret" onChange={handleChange} />
+            <StyledButton type="submit">Register</StyledButton>
+          </form>
         </LeftContainer>
         <RightContainer>Right </RightContainer>
       </LeftRightSplitContainer>
