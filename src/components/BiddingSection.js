@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import eth from "../assets/eth.svg";
+import pepe from "../assets/pepe.png"
 import StyledButton from "./Button";
 import Web3 from "web3";
 import StyledInput from "../components/Input";
 
-let web3
+let web3;
 web3 = web3?.currentProvider || new Web3(window.ethereum);
 
 const Container = styled.div`
@@ -14,7 +15,8 @@ const Container = styled.div`
 
 const LeftRightSplitContainer = styled.div`
   display: grid;
-  grid-template-columns:40% auto;
+  grid-column-gap: 10%;
+  grid-template-columns: 40% auto;
 `;
 
 const LeftContainer = styled.div`
@@ -22,8 +24,8 @@ const LeftContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  img{
-      width: 100px;
+  img {
+    width: 400px;
   }
 `;
 
@@ -40,10 +42,10 @@ const BiddingSection = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleBid = async(e) => {
+  const handleBid = async (e) => {
     e.preventDefault();
-    const block = await web3.eth.getAccounts()
-    console.log(block)
+    const block = await web3.eth.getAccounts();
+    console.log(block);
   };
 
   return (
@@ -55,14 +57,19 @@ const BiddingSection = () => {
       <p style={{ fontSize: "46px" }}> Ongoing Auction </p>
       <LeftRightSplitContainer>
         <LeftContainer>
-          <img src={eth} alt="temp pic"/>
+          <img src={pepe} alt="temp pic" />
           <form method="post" onSubmit={handleBid}>
-            <StyledInput name="bidPrice" onChange={handleChange} />
-            <StyledInput name="idSecret" onChange={handleChange} />
+            <StyledInput name="bidPrice" onChange={handleChange} placeholder="Enter Bid Price"/>
+            <StyledInput name="idSecret" onChange={handleChange} placeholder="Enter ID Secret"/>
             <StyledButton type="submit">Register</StyledButton>
           </form>
         </LeftContainer>
-        <RightContainer>Right </RightContainer>
+        <RightContainer>
+          <p style={{ fontSize: "25px", fontWeight: "700" }}>Pepe Coin</p>
+          <p>Bid Start Time / End Time (GTM 8+): Apr 23 14:00 / Apr 23 16:00</p>
+          <p>Reveal start / end time (GTM 8+): Apr 16:00 / Apr 17:00</p>
+          <p>Minimum Bid Price: Apr 16:00 / Apr 17:00</p>{" "}
+        </RightContainer>
       </LeftRightSplitContainer>
     </Container>
   );
