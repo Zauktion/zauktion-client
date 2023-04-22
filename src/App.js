@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-import Navbar from './components/Navbar';
-import styled from 'styled-components';
+import Navbar from "./components/Navbar";
+import Section from "./components/Section";
+import styled from "styled-components";
+import BiddingSection from "./components/BiddingSection";
+import { Toaster } from "react-hot-toast";
 
 const PageContainer = styled.div`
   padding: 0em 8em;
-  background-image: linear-gradient(#53286F, #ffffff);
-  height: 100vh;
+  background-image: linear-gradient(#53286f, #ffffff);
+  height: 200vh;
   color: white;
-`
+`;
 
 function App() {
-    return (
-      <PageContainer>
-        <Navbar>
-
-        </Navbar> 
-      </PageContainer>
-    )
+  return (
+    <PageContainer>
+      <Toaster />
+      <Navbar />
+      <Section />
+      <BiddingSection />
+    </PageContainer>
+  );
 }
 
 export default App;

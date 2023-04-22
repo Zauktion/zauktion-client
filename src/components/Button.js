@@ -13,6 +13,7 @@ const StyledButton = styled.button`
     background-image: linear-gradient(to right, #348380, #F9DB6D);
     border-radius: 4px 4px 4px 20px;
     border: none;
+    cursor: pointer;
     &:hover{
         opacity: 0.9;
     }

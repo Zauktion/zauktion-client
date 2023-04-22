@@ -18,11 +18,11 @@ const Container = styled.div`
 `
 
 const Navbar = () =>{
-    const {status, account} = useMetaMask() 
+    const {status, account, connect} = useMetaMask() 
     return (
         <Container>
-            <img src={logo}/>
-            {status === 'notConnected' && <StyledButton>connect wallet</StyledButton>}
+            <img src={logo} alt="logo"/>
+            {status === 'notConnected' && <StyledButton onClick={connect}>connect wallet</StyledButton>}
             {status === 'connected' && <StyledButton>{account}</StyledButton>} 
             {status === 'unavailable' && <StyledButton>MetaMask not available :(</StyledButton>}   
         </Container>
