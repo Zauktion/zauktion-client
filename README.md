@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# Zauktion PoC demon Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend for the proof of concept of the bidding system.</br>
+Which will generate proof for the users and send transaction. 
+
+<img width="1332" alt="Screen Shot 2023-04-22 at 11 50 30 PM" src="https://user-images.githubusercontent.com/48847495/233818858-3732afb2-421e-436f-8567-3f4fb6e667d3.png">
 
 ## Available Scripts
 
