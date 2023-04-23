@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import eth from "../assets/eth.svg";
-import pepe from "../assets/pepe.png"
+import pepe from "../assets/pepe.png";
 import StyledButton from "./Button";
 import Web3 from "web3";
 import StyledInput from "../components/Input";
+import toast from "react-hot-toast";
+import axios from "axios";
+import abi from "../config/zauktion.json";
 
 let web3;
 web3 = web3?.currentProvider || new Web3(window.ethereum);
@@ -44,8 +46,32 @@ const BiddingSection = () => {
 
   const handleBid = async (e) => {
     e.preventDefault();
-    const block = await web3.eth.getAccounts();
-    console.log(block);
+    try {
+      const res = await axios.post(`http://localhost:8080/gen-proof`, inputs, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const proof = JSON.parse(res.data.body);
+      const contract = new web3.eth.Contract(
+        abi.abi,
+        "0xF03A8aeFA07f342231BEDc4A798035C5B65d8Fc0"
+      );
+      const msgSender = await web3.eth.getAccounts()
+      const entranceFee = await web3.utils.toWei('0.0000001', 'ether')
+      await contract.methods.bid(
+        proof.proofForTxD[0],
+        proof.proofForTxD[1],
+        proof.proofForTxD[2],
+        proof.proofForTxD[3],
+        proof.proofForTxA,
+        proof.proofForTxB,
+        proof.proofForTxC
+      ).send({from: msgSender[0], value: entranceFee});
+    } catch (e) {
+      console.log(e);
+      toast.error(e.message);
+    }
   };
 
   return (
@@ -59,8 +85,16 @@ const BiddingSection = () => {
         <LeftContainer>
           <img src={pepe} alt="temp pic" />
           <form method="post" onSubmit={handleBid}>
-            <StyledInput name="bidPrice" onChange={handleChange} placeholder="Enter Bid Price"/>
-            <StyledInput name="idSecret" onChange={handleChange} placeholder="Enter ID Secret"/>
+            <StyledInput
+              name="bid"
+              onChange={handleChange}
+              placeholder="Enter Bid Price"
+            />
+            <StyledInput
+              name="idSecret"
+              onChange={handleChange}
+              placeholder="Enter ID Secret"
+            />
             <StyledButton type="submit">Register</StyledButton>
           </form>
         </LeftContainer>
@@ -76,3 +110,5 @@ const BiddingSection = () => {
 };
 
 export default BiddingSection;
+
+
